@@ -8,12 +8,28 @@ import (
 )
 
 
+//helloHandler func
+func helloHandler(w http.ResponseWriter, r *http.Request){
+	//check if path is correct
+	if r.URL.Path != "/hello"{
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
+	}
+
+	//check if method is correct
+	if r.Method != "GET"{
+		http.Error(w, "Method is not supported.", http.StatusNotFound)
+		return
+	}
+
+	//send message to browser
+	fmt.Fprintf(w, "Hello")
+}
+
+
 func main(){
 
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request){
-		//Fprintf -print out formatted string to the w destination
-		fmt.Fprintf(w, "hello!!!")
-	})
+	http.HandleFunc("/hello", helloHandler)
 
 
 	fmt.Printf("starting server at port 8080\n")
