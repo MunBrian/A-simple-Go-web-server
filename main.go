@@ -29,6 +29,10 @@ func helloHandler(w http.ResponseWriter, r *http.Request){
 
 func main(){
 
+	fileServer := http.FileServer(http.Dir("./static"))
+	//Handle - accept path and fileserver
+	http.Handle("/", fileServer)
+
 	http.HandleFunc("/hello", helloHandler)
 
 
